@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getUser } from 'actions/auth';
 
 interface loginSubmitType {
-    username: string,
+    email: string,
     password:string
 }
 
@@ -11,7 +11,7 @@ export function loginSubmit(loginUserName,loginPass){
     const dispatch = useDispatch();
     const loginSubmitFunc = ():void=>{
         const user:loginSubmitType = {
-          username: loginUserName.value,
+          email: loginUserName.value,
           password: loginPass.value,
         };
         dispatch(getUser({user}))
@@ -28,7 +28,7 @@ export function loginSubmit(loginUserName,loginPass){
         className="btn btn-auth btn-success"
         data-test="btnSubmit"
         onClick={()=>loginSubmitFunc()} 
-      >ورود</button>
+      >Login</button>
     )}
     return {
         SubmitComp,

@@ -1,130 +1,86 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { AnimateField } from '../../../components/snappForm';
 import { signUpUser } from 'actions/auth';
-import snappNumber from '../../../components/snappNumber';
-
 import './style.scss';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signUpFullname: '',
-      signUpPhone: '',
-      signUpUserEmail: '',
-      signUpPass: '',
+function Register() {
+  const dispatch = useDispatch();
+  const signUpUsername = useFormInput('');
+  const signUpUserEmail = useFormInput('');
+  const signUpPass = useFormInput('');
+
+  function useFormInput(initValue){
+    const [value,setValue] = useState(initValue);
+    const handleChange = (e) => {
+      const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+      setValue(value)
     };
-    this.signUpSubmit = this.signUpSubmit.bind(this);
-
-    this.onChange = this.onChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-  }
-
-  onChange = event => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value,
-    });
-
-    // this.setState({ [e.target.name]: e.target.value });
-  };
-
-  signUpSubmit = e => {
-    e.preventDefault();
-    const {
-      signUpFullname,
-      signUpPhone,
-      signUpUserEmail,
-      signUpPass,
-    } = this.state;
-
-    // fire action
-    const user = {
-      fullName: snappNumber(signUpFullname),
-      mobileNumber: snappNumber(signUpPhone),
-      email: snappNumber(signUpUserEmail),
-      password: signUpPass,
-      confirmPass: signUpPass,
-    };
-    this.props.onSignUp({ user });
-  };
-
-  handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      this.signUpSubmit(e);
+    return {
+      value,
+      onChange:handleChange,
     }
   };
+  
+  function signUpSubmit(
+    signUpUsername,
+    signUpUserEmail,
+    signUpPass
+  ){
+    // fire action
+    const user = {
+      username: signUpUsername.value,
+      email: signUpUserEmail.value,
+      password: signUpPass.value,
+    };
+    dispatch(signUpUser({ user }));
+  };
 
-  render() {
-    const {
-      signUpFullname,
-      signUpPass,
-      signUpPhone,
-      signUpUserEmail,
-    } = this.state;
-    return (
-      <div>
-        <form onSubmit={this.signUpSubmit} className="loginForm">
-          <AnimateField
-            className="col-12"
-            placeholder=" "
-            name="signUpFullname"
-            value={signUpFullname}
-            type="text"
-            onChange={this.onChange}
-            label="نام و نام خانوادگی"
-          />
-          <AnimateField
-            className="col-12"
-            placeholder=" "
-            name="signUpPhone"
-            value={signUpPhone}
-            type="text"
-            onChange={this.onChange}
-            label="موبایل"
-            // validation={['شماره موبایل اشتباه است.']}
-          />
-          <AnimateField
-            className="col-12"
-            placeholder=" "
-            name="signUpUserEmail"
-            value={signUpUserEmail}
-            type="text"
-            onChange={this.onChange}
-            label="ایمیل"
-            // validation={['ایمیل اشتباه است.']}
-          />
-          <AnimateField
-            className="col-12"
-            placeholder=" "
-            name="signUpPass"
-            type="password"
-            value={signUpPass}
-            onChange={this.onChange}
-            label="رمزعبور"
-          />
-          <div className="topM40 wFull hP20 center">
-            <button className="btn btn-auth btn-success">ثبت نام</button>
-          </div>
-        </form>
+  return (
+    <div>
+      <div
+        className="loginForm"
+      >
+        <AnimateField
+          className="col-12"
+          placeholder=" "
+          name="signUpUsername"
+          value={signUpUsername.value}
+          type="text"
+          onChange={signUpUsername.onChange}
+          label="Username"
+        />
+        <AnimateField
+          className="col-12"
+          placeholder=" "
+          name="signUpUserEmail"
+          value={signUpUserEmail.value}
+          type="text"
+          onChange={signUpUserEmail.onChange}
+          label="Email"
+        />
+        <AnimateField
+          className="col-12"
+          placeholder=" "
+          name="signUpPass"
+          type="password"
+          value={signUpPass.value}
+          onChange={signUpPass.onChange}
+          label="Password"
+        />
+
+        <div className="topM40 wFull hP20 center">
+          <button className="btn btn-auth btn-success"
+          onClick={
+            () => signUpSubmit(
+              signUpUsername,
+              signUpUserEmail,
+              signUpPass
+            )}>Signup</button>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-const mapDispatchToProps = dispatch => ({
-  onSignUp: signUpDetail => {
-    dispatch(signUpUser(signUpDetail));
-  },
-});
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Register);
+export default Register;
