@@ -24,7 +24,7 @@ const deRequest = (url, method = 'GET', params = {},handleError=true) => {
         }).catch(error => {
             if(typeof error.response === "undefined"){
                 configureStore.dispatch(addToast({
-                    text: "لطفا اتصال اینترنت را بررسی کنید.",
+                    text: "Please check internet connection.",
                     color: "danger"
                 }));
             }
@@ -33,7 +33,7 @@ const deRequest = (url, method = 'GET', params = {},handleError=true) => {
                 return true;
             }
             let errors = [];
-            const defaultErrorMessage = 'بروز خطا! لطفا مجددا تلاش کنید';
+            const defaultErrorMessage = 'Error! please try again';
             if (error.hasOwnProperty('response') && error.response) {
                 if (error.response.hasOwnProperty('status')) {
                     switch (error.response.status) {
@@ -42,20 +42,20 @@ const deRequest = (url, method = 'GET', params = {},handleError=true) => {
                                 let data = error.response.data;
                                 if (data.hasOwnProperty('errors')) {
                                     let validationErrors = data.errors;
+
                                     for (let fieldName in validationErrors) {
-                                        validationErrors[fieldName].forEach((m) => {
-                                            errors.push(m.trim());
-                                        });
+                                        errors.push(validationErrors[fieldName]);
+                                       
                                     }
                                 }
                             }
                             break;
                         case 403:
-                            errors.push('امکان دسترسی شما به این عملکرد وجود ندارد');
+                            errors.push('Unauthorized Access');
                             break;
                         case 401:
                             // configureStore.dispatch(logOutUser());
-                            errors.push('امکان دسترسی شما به این عملکرد وجود ندارد');
+                            errors.push('Unauthorized Access');
                             break;
                         case 404:
                             configureStore.dispatch(show404());
