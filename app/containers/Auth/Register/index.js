@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AnimateField } from '../../../components/snappForm';
 import { signUpUser } from 'actions/auth';
-import './style.scss';
 
 function Register() {
   const dispatch = useDispatch();

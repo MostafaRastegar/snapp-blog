@@ -1,6 +1,5 @@
 import { takeLatest, takeEvery, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import { history } from 'store';
 import {
   loginPost,
   signUpPost,
@@ -13,16 +12,9 @@ import {
 
 import {
   getUserInfo,
-  signUpUserResponse,
-
 } from '../actions/auth';
-
-
 import { disableLoading, enableLoading } from 'actions/loading';
-
 import { addToast } from 'actions/notifications';
-
-import { addValidation, removeValidation } from 'actions/validations';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export function* watchUserLogin() {
@@ -33,66 +25,38 @@ export function* watchUserLogin() {
 function* userLogin({ payload }) {
   try {
     yield put(enableLoading({ loginLoading: true }));
-    const signInUser = yield loginPost(payload.user);
-    if (signInUser.status) {
-      yield put(getUserInfo(signInUser.result.session.user));
-      yield put(getUserBalance(signInUser.result.session.user.cacheBalance));
+    const signInUser = yield loginPost(payload);
+    if (signInUser.hasOwnProperty('user')) {
+      yield put(getUserInfo(signInUser.user));
+      localStorage.setItem('token',signInUser.user.token)
       yield put(disableLoading({ loginLoading: false }));
+      yield put(push('/'));
       yield put(
         addToast({
-          text: signInUser.message_fa,
+          text: `Welcome ${signInUser.user.username}`,
           color: 'success',
-          delay: 2000,
+          delay: 3000,
         }),
       );
-      yield put(
-        removeValidation({
-          userLogin: {},
-        }),
-      );
-      if (signInUser.result.session.user.mobileIsVerified) {
-        yield put(push(localStorage.getItem('prevLocation')));
-      } else {
-        yield put(push('/activation-code/'));
-      }
     } else {
       yield put(disableLoading({ loginLoading: false }));
-      if (signInUser) {
-        yield put(
-          addToast({
-            text: signInUser.message_fa,
-            color: 'danger',
-            delay: 2000,
-          }),
-        );
-      } else {
-        yield put(
-          addToast({
-            text: 'امکان لاگین وجود ندارد',
-            color: 'danger',
-            delay: 2000,
-          }),
-        );
-      }
-    }
-  } catch (error) {
-    yield put(disableLoading({ loginLoading: false }));
-
-    if (error.status === 422) {
-      yield put(
-        addValidation({
-          userLogin: error.data.errors,
-        }),
-      );
-    } else {
       yield put(
         addToast({
-          text: error.data.message,
+          text: 'Can not login',
           color: 'danger',
           delay: 2000,
         }),
       );
-    }
+    };
+  } catch (error) {
+     yield put(disableLoading({ loginLoading: false }));
+     yield put(
+       addToast({
+         text: 'Error!,Please try again later.',
+         color: 'danger',
+         delay: 2000,
+       }),
+     )
   }
 }
 
@@ -104,47 +68,38 @@ export function* watchUserSignup() {
 function* userSignUp({ payload }) {
   try {
     yield put(enableLoading({ registerLoading: true }));
-    const signUpUser = yield signUpPost(payload.user);
+    const signUpUser = yield signUpPost(payload);
 
-    if (signUpUser.status) {
-      yield put(getUserInfo(signUpUser.result.session.user));
-      yield put(getUserBalance(signUpUser.result.session.user.cacheBalance));
-      yield put(signUpUserResponse(signUpUser.data));
+    if (signUpUser.hasOwnProperty('user')) {
+      yield put(getUserInfo(signUpUser.user));
+      localStorage.setItem('token',signInUser.user.token)
       yield put(disableLoading({ registerLoading: false }));
-      yield put(push('/activation-code'));
+      yield put(push('/'));
       yield put(
-        removeValidation({
-          userSignup: {},
+        addToast({
+          text: `Welcome ${signUpUser.user.username}`,
+          color: 'success',
+          delay: 3000,
         }),
       );
     } else {
       yield put(disableLoading({ registerLoading: false }));
-
       yield put(
         addToast({
-          text: signUpUser.message_fa,
+          text: 'Error!, Please your data',
           color: 'danger',
           delay: 2000,
         }),
       );
     }
   } catch (error) {
-    yield put(disableLoading({ registerLoading: false }));
-
-    if (error.status === 422) {
-      yield put(
-        addValidation({
-          userSignup: error.data.errors,
-        }),
-      );
-    } else {
-      yield put(
-        addToast({
-          text: error.data.message,
-          color: 'danger',
-          delay: 2000,
-        }),
-      );
-    }
+    yield put(disableLoading({ loginLoading: false }));
+    yield put(
+      addToast({
+        text: 'Error!, Please check your data',
+        color: 'danger',
+        delay: 2000,
+      }),
+    )
   }
 }

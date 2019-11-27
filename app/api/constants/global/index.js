@@ -9,9 +9,14 @@ export const websiteUrl = (relativePath = '') => {
   return APP_BASE_CANONICAL_URL + relativePath;
 };
 
+let globalHeaderObj = {
+  'Content-Type': 'application/json',
+  'X-Requested-With':'XMLHttpRequest',
+}
 export const globalHeader = () => {
-  return {
-    'Content-Type': 'application/json',
-    'X-Requested-With':'XMLHttpRequest'
-  };
+  if(typeof localStorage.getItem('token') !== 'undefined'){
+    globalHeaderObj['Authorization'] = 'Token ' + localStorage.getItem('token');
+    return globalHeaderObj;
+  }
+  return globalHeaderObj;
 };
