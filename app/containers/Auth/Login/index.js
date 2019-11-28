@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { AnimateField } from '../../../components/snappForm';
 import { loginSubmit, useFormInput } from './util';
+import {history} from '../../../store';
+
 import './style.scss';
 function Login() {
   const loginUserName = useFormInput('john@jacob.com');
   const loginPass = useFormInput('johnnyjacob');
+  const auth = useSelector(state => state.Auth);
   const { SubmitComp, onKeyPress } = loginSubmit(loginUserName, loginPass);
+  useEffect(()=>{
+    // check user login
+    if (auth.token) {
+      history.push("/");
+    }
+  },[]);
   return (
     <div>
       <div className="loginForm">
@@ -16,7 +26,7 @@ function Login() {
           value={loginUserName.value}
           type="text"
           onChange={loginUserName.onChange}
-          label="ایمیل یا موبایل"
+          label="Email"
           onKeyPress={onKeyPress}
           required
         />
@@ -27,7 +37,7 @@ function Login() {
           onChange={loginPass.onChange}
           value={loginPass.value}
           type="password"
-          label="رمزعبور"
+          label="Password"
           onKeyPress={onKeyPress}
           required
         />

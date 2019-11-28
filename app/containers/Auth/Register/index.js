@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AnimateField } from '../../../components/snappForm';
 import { signUpUser } from 'actions/auth';
-
+import {history} from '../../../store';
 function Register() {
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.Auth);
   const signUpUsername = useFormInput('');
   const signUpUserEmail = useFormInput('');
   const signUpPass = useFormInput('');
+
+  useEffect(()=>{
+    // check user login
+    if (auth.token) {
+      history.push("/");
+    }
+  },[]);
 
   function useFormInput(initValue){
     const [value,setValue] = useState(initValue);
