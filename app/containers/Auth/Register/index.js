@@ -2,38 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimateField } from '../../../components/snappForm';
 import { signUpUser } from 'actions/auth';
-import {history} from '../../../store';
+import { history } from '../../../store';
+import { jssRinc } from '../../../style/jss/_rinc';
+
 function Register() {
+  const { bold, bottomM30 } = jssRinc();
   const dispatch = useDispatch();
   const auth = useSelector(state => state.Auth);
   const signUpUsername = useFormInput('');
   const signUpUserEmail = useFormInput('');
   const signUpPass = useFormInput('');
 
-  useEffect(()=>{
+  useEffect(() => {
     // check user login
     if (auth.token) {
       history.push("/");
     }
-  },[]);
+  }, []);
 
-  function useFormInput(initValue){
-    const [value,setValue] = useState(initValue);
+  function useFormInput(initValue) {
+    const [value, setValue] = useState(initValue);
     const handleChange = (e) => {
       const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
       setValue(value)
     };
     return {
       value,
-      onChange:handleChange,
+      onChange: handleChange,
     }
   };
-  
+
   function signUpSubmit(
     signUpUsername,
     signUpUserEmail,
     signUpPass
-  ){
+  ) {
     // fire action
     const user = {
       username: signUpUsername.value,
@@ -45,6 +48,7 @@ function Register() {
 
   return (
     <div>
+      <h3 className={`${bold} ${bottomM30}`}>Register</h3>
       <div
         className="loginForm"
       >
@@ -78,12 +82,12 @@ function Register() {
 
         <div className="topM40 wFull hP20 center">
           <button className="btn btn-auth btn-success"
-          onClick={
-            () => signUpSubmit(
-              signUpUsername,
-              signUpUserEmail,
-              signUpPass
-            )}>Signup</button>
+            onClick={
+              () => signUpSubmit(
+                signUpUsername,
+                signUpUserEmail,
+                signUpPass
+              )}>Signup</button>
         </div>
       </div>
     </div>

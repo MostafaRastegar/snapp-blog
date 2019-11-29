@@ -1,10 +1,8 @@
-// Learn more or give us feedback
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 import SnappFooter from '../../components/snappFooter';
 import SnappSidebar from '../../components/snappSidebar';
 import SnappHeader from '../../components/snappHeader';
 import GlobalStyle from '../../global-styles';
-// import Head from 'next/head'
 
 const Layout = (props) => {
   return (
@@ -13,7 +11,9 @@ const Layout = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-md-8">
-            {props.children}
+            <div className='my-4'>
+              {props.children}
+            </div>
           </div>
           <div className="col-md-4">
             <SnappSidebar />

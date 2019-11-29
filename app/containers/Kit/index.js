@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Button } from 'reactstrap';
-import { AnimateField,CheckBox } from '../../components/snappForm';
+import { AnimateField, CheckBox } from '../../components/snappForm';
 import SnappAlert from '../../components/snappAlert';
 
 export class Kit extends React.Component {
@@ -26,19 +26,7 @@ export class Kit extends React.Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  componentDidMount(){
-  }
-
   render() {
-    const buttonElement = {
-      title: `مشاهده لیست رستوران ها`,
-      small: `small`,
-      big: `big`,
-      success: `success`,
-    };
-    // const classes = this.props;
-    // const classes = this.props;
     const {
       loginUserName,
       signUpPhone,
@@ -51,7 +39,7 @@ export class Kit extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">            
+          <div className="col-lg-12">
             <SnappAlert type="success">
               For test
             </SnappAlert>
@@ -69,11 +57,8 @@ export class Kit extends React.Component {
             </SnappAlert>
 
           </div>
-          <div className="col-lg-12">
-            <Icon />
-          </div>
           <hr />
-  
+
           <div className="col-lg-12">
             <h1>Buttons:</h1>
             <Button color="primary">primary</Button>{' '}
@@ -91,25 +76,25 @@ export class Kit extends React.Component {
             <Button color="link">link</Button>
           </div>
           <div className="col-lg-12 mt-5">
-            <h1>فرم ها</h1>
+            <h1>Form</h1>
             <AnimateField
               className="col-12"
-              placeholder="وارد نمایید"
+              placeholder="Please Enter"
               name="loginUserName"
               type="text"
-              label="شماره همراه / آدرس ایمیل"
+              label="Email"
               value={loginUserName}
               onChange={this.onChange}
               icon="snapp-user"
-              iconColor="blue"
-              validation={['شماره موبایل اشتباه است.']}
+              iconcolor="blue"
+              validation={['error']}
             />
             <AnimateField
               className="col-12"
               name="loginPass"
               type="password"
-              placeholder="وارد نمایید"
-              label="رمز عبور"
+              placeholder="Pleas Enter"
+              label="Password"
               value={loginPass}
               onChange={this.onChange}
               // onKeyPress={this.handleKeyPress}
@@ -137,7 +122,7 @@ export class Kit extends React.Component {
                     <div className="radio-face" />
                     <i />
                   </div>
-                  <span>مرد</span>
+                  <span>Male</span>
                 </label>
                 <label className="radio-wrapper">
                   <div className="label-parent">
@@ -153,19 +138,19 @@ export class Kit extends React.Component {
                     <div className="radio-face" />
                     <i />
                   </div>
-                  <span>زن</span>
+                  <span>Female</span>
                 </label>
               </div>
-              <label> جنسیت </label>
+              <label> Type </label>
             </div>
 
 
             <AnimateField
               className="col-sm-6"
-              placeholder="وارد نمایید"
+              placeholder="Please Enter"
               name="signUpPhone"
               type="text"
-              label="شماره همراه"
+              label="Mobile"
               value={signUpPhone}
               onChange={this.onChange}
               onKeyPress={this.handleKeyPressUpdate}
@@ -178,19 +163,19 @@ export class Kit extends React.Component {
 
             <AnimateField
               className="col-sm-6"
-              placeholder="وارد نمایید"
+              placeholder="Please Enter"
               name="signUpUserEmail"
               type="email"
-              label="آدرس ایمیل"
+              label="Email"
               value={signUpUserEmail}
               onChange={this.onChange}
               onKeyPress={this.handleKeyPressUpdate}
               disabled
-              // validation={
-              //   typeof classes.validation.userUpdate.email === "undefined"?
-              //   false:classes.validation.userUpdate.email
-              // }
-              // required={true}
+            // validation={
+            //   typeof classes.validation.userUpdate.email === "undefined"?
+            //   false:classes.validation.userUpdate.email
+            // }
+            // required={true}
             />
             {/* <div className={"snapp-animate-field form-group col-sm-6" + (typeof classes.validation.userUpdate.city_id === "undefined"?"":" panigale__border_red")}> */}
             <div className="snapp-animate-field form-group col-sm-6">
@@ -203,17 +188,17 @@ export class Kit extends React.Component {
                   id="inputState"
                   className="form-control"
                 >
-                  <option value="">شهر</option>
+                  <option value="">City</option>
                   {/* {cityItem} */}
                 </select>
               </div>
-              <label>شهر</label>
+              <label>City</label>
             </div>
 
             <div className="snapp-page-profile__user-edit-button form-group col-12">
               {/* <button className={!classes.loading.userProfileLoading?"btn btn-danger ml-0":"btn ml-0 btn-loading btn-disable disabled-link"}> */}
               <button type="button" className="btn btn-danger ml-0">
-                ثبت
+                Submit
               </button>
             </div>
           </div>

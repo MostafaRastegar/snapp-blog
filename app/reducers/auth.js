@@ -1,6 +1,4 @@
 import {
-  // USER_AUTH_CHECK,
-  // SIGNIN_USER,
   SIGNIN_USER_INFO,
   SIGNOUT_USER,
   UPDATE_USER_INFO,
@@ -16,7 +14,7 @@ const user = (state = {}, action) => {
       return Object.assign({}, state, action.payload);
 
     case SIGNOUT_USER:
-      localStorage.removeItem("token");
+      localStorage.clear();
       return {};
 
     default:

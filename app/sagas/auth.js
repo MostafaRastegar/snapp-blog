@@ -69,10 +69,9 @@ function* userSignUp({ payload }) {
   try {
     yield put(enableLoading({ registerLoading: true }));
     const signUpUser = yield signUpPost(payload);
-
     if (signUpUser.hasOwnProperty('user')) {
       yield put(getUserInfo(signUpUser.user));
-      localStorage.setItem('token',signInUser.user.token)
+      yield ()=>localStorage.setItem('token',signInUser.user.token)
       yield put(disableLoading({ registerLoading: false }));
       yield put(push('/'));
       yield put(

@@ -1,7 +1,7 @@
 import {createUseStyles} from 'react-jss';
 const color = {
-  primary: '#434343',
-  secondary: '#f79e40',
+  primary: '#293039',
+  secondary: '#3b2eb2',
   success: '#1CBD2F',
   tag: '#21974E',
   toggle: '#4ad964',
@@ -16,6 +16,7 @@ const color = {
   org: '#414367',
   highlight: '#9fa02b',
   gray0:'#94a1ac',
+  gray1:'#666666',
 }
 export const jssRinc = createUseStyles({
     'white': {
@@ -125,6 +126,12 @@ export const jssRinc = createUseStyles({
     },
     'gray0Bg': {
       backgroundColor: color.gray0
+    },
+    'gray1': {
+      color: color.gray1
+    },
+    'gray1Bg': {
+      backgroundColor: color.gray1
     },
     'debug': {
       backgroundColor: '#f9d7e1'
