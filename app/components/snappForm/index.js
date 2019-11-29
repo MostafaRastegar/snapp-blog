@@ -12,7 +12,7 @@ const AnimateField = props => {
     <div
       className={`snapp-animate-field form-group ${
         classes.className ? classes.className : ''
-      }${!classes.validation ? '' : ' panigale__border_red'}`}
+        }${!classes.validation ? '' : ' panigale__border_red'}`}
     >
       {classes.validation && (
         <div className="snapp-form-validation">{classes.validation[0]}</div>
@@ -38,7 +38,7 @@ const AnimateField = props => {
         <i
           className={`snapp-icon ${classes.icon}`}
           style={{
-            color: classes.iconColor ? classes.iconColor : '#929292',
+            color: classes.iconcolor ? classes.iconcolor : '#929292',
           }}
         />
       )}
@@ -52,7 +52,7 @@ const AnimateFieldSheba = props => {
     <div
       className={`snapp-animate-field form-group ${
         classes.className ? classes.className : ''
-      }${!classes.validation ? '' : ' panigale__border_red'}`}
+        }${!classes.validation ? '' : ' panigale__border_red'}`}
     >
       {classes.validation && (
         <div className="snapp-form-validation">{classes.validation[0]}</div>
@@ -78,7 +78,7 @@ const AnimateFieldSheba = props => {
         <i
           className={`snapp-icon ${classes.icon}`}
           style={{
-            color: classes.iconColor ? classes.iconColor : '#929292',
+            color: classes.iconcolor ? classes.iconcolor : '#929292',
           }}
         />
       )}
@@ -92,7 +92,7 @@ const CheckBox = props => {
     <div
       className={`checkbox checkbox-success checkbox-toggle topP5 ${
         classes.className ? classes.className : ''
-      }`}
+        }`}
     >
       <input
         type={classes.type}
@@ -101,7 +101,7 @@ const CheckBox = props => {
         checked={classes.checked}
         className={`styled ${
           classes.inputClassName ? classes.inputClassName : ''
-        }`}
+          }`}
         defaultChecked={classes.defaultChecked}
         onChange={classes.onChange}
         onKeyPress={classes.onKeyPress}
@@ -120,7 +120,7 @@ const RadioButton = props => {
     <div
       className={`radiobuttion radiobutton-success radiobutton-toggle topP5 ${
         classes.className ? classes.className : ''
-      }`}
+        }`}
     >
       <input
         type={classes.type}
@@ -129,7 +129,7 @@ const RadioButton = props => {
         checked={classes.checked}
         className={`styled ${
           classes.inputClassName ? classes.inputClassName : ''
-        }`}
+          }`}
         defaultChecked={classes.defaultChecked}
         onChange={classes.onChange}
         onKeyPress={classes.onKeyPress}
@@ -169,7 +169,7 @@ class AnimateFieldPassword extends React.Component {
       <div
         className={`snapp-animate-field form-group ${
           classes.className ? classes.className : ''
-        }${!classes.validation ? '' : ' panigale__border_red'}`}
+          }${!classes.validation ? '' : ' panigale__border_red'}`}
       >
         {classes.validation && (
           <div className="snapp-form-validation">{classes.validation[0]}</div>

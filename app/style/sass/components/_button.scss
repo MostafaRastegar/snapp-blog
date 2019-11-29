@@ -2,9 +2,14 @@
   border-radius: 20px;
   padding: 5px 22px;
   height: 40px;
+  line-height: 27px;
   &-primary{
     background-color: $color-primary;
     border-color: $color-primary;
+  }
+  &-transparent{
+    background-color: transparent;
+    border-color: white;
   }
   &-secondary{
     background-color: $color-secondary;

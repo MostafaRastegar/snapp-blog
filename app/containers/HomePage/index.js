@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Loading from '../../components/snappLoading';
-import ArticleCard from '../../components/snappArticleCard';
 import { articlesAllGet } from '../../api/application/articles';
+import ArticleCard from '../../components/snappArticleCard';
 
 
 const HomePage = () => {
@@ -26,8 +26,8 @@ const HomePage = () => {
 			{!loading ?
 				<div className="row">
 					{articles.map((item) =>
-						<div key={item.slug} className="col-6">
-							<ArticleCard data={item}/>
+						<div key={item.slug} className="col-md-6">
+							<ArticleCard data={item} />
 						</div>
 					)}
 				</div> :
