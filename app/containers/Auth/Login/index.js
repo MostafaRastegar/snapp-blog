@@ -8,8 +8,8 @@ import { jssRinc } from '../../../style/jss/_rinc';
 function Login() {
   const { bold, bottomM30 } = jssRinc();
 
-  const loginUserName = useFormInput('john@jacob.com');
-  const loginPass = useFormInput('johnnyjacob');
+  const loginUserName = useFormInput('');
+  const loginPass = useFormInput('');
   const auth = useSelector(state => state.Auth);
   const { SubmitComp, onKeyPress } = loginSubmit(loginUserName, loginPass);
   useEffect(() => {
